@@ -1,2 +1,0 @@
-{{- if hasPrefix . " " }} {{ end }}
-{{- . | replaceRE "\n+ *" " " | safeHTML | markdownify }}
