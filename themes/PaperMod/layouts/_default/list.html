@@ -1,0 +1,35 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+  {{ partial "breadcrumb.html" . }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ partial "post_description.html" . }}
+</header>
+{{- end }}
+
+{{ partial "post_content.html" (dict "ctx" .) }}
+
+{{- if not ($.Param "hideChildPages" | default false) }}
+  {{- $paginator := .Paginate (partialCached "pages" . .) }}
+  <ol class="page-list">
+    {{- range $paginator.Pages -}}
+      {{- partial "page_list_entry.html" . -}}
+    {{- end -}}
+  </ol>
+
+  {{- if gt $paginator.TotalPages 1 }}
+  <footer class="page-footer">
+    <nav class="pagination">
+      {{- if $paginator.HasPrev }}
+      <a class="prev" href="{{ $paginator.Prev.RelPermalink }}">« {{ i18n "prev_page" }}</a>
+      {{- end }}
+      {{- if $paginator.HasNext }}
+      <a class="next" href="{{ $paginator.Next.RelPermalink }}">{{ i18n "next_page" }} »</a>
+      {{- end }}
+    </nav>
+  </footer>
+  {{- end }}
+{{- end }}
+
+{{- end }}{{/* end main */ -}}

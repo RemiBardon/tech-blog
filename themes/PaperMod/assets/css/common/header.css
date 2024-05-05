@@ -1,0 +1,71 @@
+.header {
+    width: 100%;
+    line-height: normal;
+}
+
+.nav {
+    width: var(--nav-width);
+    margin: 0 auto;
+    padding: calc(var(--gap) / 2) var(--gap);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--gap);
+}
+
+.leading,
+.trailing {
+    display: flex;
+    flex-wrap: inherit;
+    margin: auto 0;
+}
+
+.leading {
+    gap: calc(var(--gap) / 2);
+    align-items: center;
+}
+
+.leading .brand {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+#theme-toggle {
+    width: 1em;
+    height: 1em;
+    font-weight: 700;
+}
+
+body.dark #moon {
+    display: none;
+}
+
+body:not(.dark) #sun {
+    display: none;
+}
+
+.trailing {
+    list-style: none;
+    word-break: keep-all;
+    overflow-x: auto;
+    white-space: nowrap;
+    column-gap: var(--gap);
+    row-gap: calc(var(--gap) / 2);
+}
+
+.trailing .active {
+    text-decoration: underline;
+}
+
+.lang-switch {
+    display: flex;
+    flex-wrap: inherit;
+}
+
+.lang-switch li {
+    list-style: none;
+}
+.lang-switch li:not([hidden]) ~ li::before {
+    content: "|";
+    margin: auto 0.25em;
+}

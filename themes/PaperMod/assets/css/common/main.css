@@ -1,0 +1,128 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    flex-grow: 1;
+    width: var(--main-width);
+    margin: 0 auto;
+    padding: var(--gap);
+}
+
+.page-header h1 {
+    font-size: 2em;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination a {
+    color: var(--theme);
+    font-size: 13px;
+    line-height: 36px;
+    background: var(--primary);
+    border-radius: calc(36px / 2);
+    padding: 0 16px;
+}
+
+.pagination .next {
+    margin-inline-start: auto;
+}
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--gap) / 2);
+    justify-content: center;
+}
+
+.social-icons {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+code {
+    direction: ltr;
+}
+
+div.highlight,
+pre {
+    position: relative;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font-size: 14px;
+    user-select: none;
+}
+
+div.highlight:hover .copy-code,
+pre:hover .copy-code {
+    display: block;
+}
+
+.page-list {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid;
+    gap: var(--content-gap) !important;
+}
+
+.page-type-species .page-list {
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
+
+.page-list li {
+    margin: 0 !important;
+}
+
+.private-page-warning {
+    width: 100%;
+    background-color: var(--warning);
+    color: #222;
+    font-size: 0.75em;
+    text-align: center;
+}
+
+.private-page-warning > * {
+    display: block;
+    width: var(--main-width);
+    margin: 0 auto;
+    padding: calc(var(--gap) / 2) var(--gap);
+}
+
+/* ===== Breadcrumb ===== */
+
+.breadcrumb a {
+    text-decoration: none !important;
+}
+
+.breadcrumb ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li:not(:first-of-type)::before {
+    content: " » ";
+    color: var(--secondary);
+}

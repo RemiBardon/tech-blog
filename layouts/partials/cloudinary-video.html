@@ -1,0 +1,52 @@
+{{- $cloudinaryUrl := (partialCached "cloudinary-url.txt" .) }}
+
+{{- $cloudinaryConfig := $.cloudinary | default dict }}
+{{- $assetPrefix := $cloudinaryConfig.assetPrefix }}
+
+<figure
+    class="{{ with $.class }}{{ . }}{{ else }}align-center{{ end }}"
+>
+    {{- /* Start link tag */}}
+    {{- if $.link }}
+    <a href="{{ $.link }}"
+        {{ with $.target }}target="{{ . }}"{{ end }}
+        {{ with $.rel }}rel="{{ . }}"{{ end }}
+    >
+    {{- end }}
+
+    {{- with .assetId -}}
+        {{- $assetId := . -}}
+        {{- $transformSuffix := "_prod" -}}
+        {{- $width := $.width }}
+        {{- $height := $.height }}
+        {{- if not (hugo.IsProduction | or (eq site.Params.env "production")) }}
+            {{- $transformSuffix = "_dev" -}}
+            {{- $width = "400" }}
+        {{- end -}}
+    <video controls
+        preload="{{ if $.lazy }}metadata{{ else }}auto{{ end }}"
+        poster="{{ with $.poster -}}
+            {{ $cloudinaryUrl }}/image/upload/t_video_thumb{{ $transformSuffix }}/{{ $assetPrefix }}{{ . }}
+        {{- else -}}
+            {{ $cloudinaryUrl }}/video/upload/t_video_thumb{{ $transformSuffix }}/{{ $assetPrefix }}{{ $assetId }}
+        {{- end }}"
+        {{ with partial "asset-alt.txt" $ -}}
+            {{ printf "alt=%q" . | safeHTMLAttr }}
+        {{- end }}
+        {{ with $width }}width="{{ . }}"{{ end }}
+        {{ with $height }}height="{{ . }}"{{ end }}
+    >
+        <source type="video/webm" src="{{ $cloudinaryUrl }}/video/upload/t_video_webm{{ $transformSuffix }}/{{ $assetPrefix }}{{ $assetId }}" />
+        <source type="video/mp4" src="{{ $cloudinaryUrl }}/video/upload/t_video_mp4{{ $transformSuffix }}/{{ $assetPrefix }}{{ $assetId }}" />
+    </video>
+    {{- else }}
+        {{- errorf "Missing value for param 'assetId' (video)" }}
+    {{- end }}
+
+    {{- /* End link tag */}}
+    {{- if .link }}
+    </a>
+    {{- end }}
+
+    {{ partialCached "figcaption.html" . . }}
+</figure>

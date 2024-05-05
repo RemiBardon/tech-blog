@@ -1,0 +1,26 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+  {{ partial "breadcrumb.html" . }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ partial "post_description.html" . }}
+</header>
+{{- end }}
+
+<ul class="terms">
+  {{- $type := .Type }}
+  {{- range $key, $value := .Data.Terms.Alphabetical }}
+    {{- $count := .Count }}
+    {{- with site.GetPage (printf "/%s/%s" $type .Name) }}
+  <li>
+    <a href="{{ .Permalink }}" class="term">
+      <span class="link-title">{{ .LinkTitle | markdownify }}</span>
+      {{- "&nbsp;" | safeHTML }}<sup class="page-count">{{ $count }}</sup>
+    </a>
+  </li>
+    {{- end }}
+  {{- end }}
+</ul>
+
+{{- end }}{{/* end main */ -}}

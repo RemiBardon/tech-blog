@@ -1,0 +1,7 @@
+{{- define "main" }}
+{{ partialCached "index_profile.html" . }}
+
+{{ partial "post_content.html" (dict "ctx" .) }}
+
+{{ partialCached "category_grid.html" . }}
+{{- end }}{{/* end main */ -}}

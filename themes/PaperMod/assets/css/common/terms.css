@@ -1,0 +1,44 @@
+.terms {
+    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--gap) / 4);
+    list-style: none;
+}
+
+.terms .term {
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    display: block;
+    text-decoration: none;
+    padding: 0.25em 0.75em;
+    color: var(--secondary);
+    font-size: medium;
+    display: flex;
+    align-items: center;
+}
+
+.terms .term .page-count {
+    font-size: x-small;
+    background-color: var(--border);
+    border-radius: 2em;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+.terms .term:hover {
+    background: var(--border);
+}
+
+.terms .term:hover .link-title {
+    text-decoration: underline;
+}
+
+.terms .term:active {
+    transform: scale(0.96);
+}
+
+body.list .terms .term {
+    background: var(--entry);
+}

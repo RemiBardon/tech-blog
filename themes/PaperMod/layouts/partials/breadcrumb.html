@@ -1,0 +1,25 @@
+{{- if (.Param "ShowBreadCrumb") }}
+<nav aria-label="Breadcrumb" class="breadcrumb">
+
+{{- $taxonomy := "series" }}
+{{ range $term := .GetTerms $taxonomy }}
+  {{- /* If the page is in a series, link to it */}}
+  {{- $ancestors := slice (site.GetPage "/") (site.GetPage $taxonomy) }}
+  {{- $ancestors = $ancestors | append . }}
+  {{- partial "partials/inline/breadcrumb.html" $ancestors }}
+{{ else }}
+  {{- /* Otherwise, show regular breadcrumbs */}}
+  {{- $ancestors := .Ancestors.Reverse }}
+  {{- partial "partials/inline/breadcrumb.html" $ancestors }}
+{{- end }}
+
+</nav>
+{{- end }}
+
+{{ define "partials/inline/breadcrumb.html" }}
+<ol>
+  {{ range . -}}
+    <li><a href="{{ .Permalink }}">{{ .LinkTitle | markdownify }}</a></li>
+  {{- end }}
+</ol>
+{{ end }}

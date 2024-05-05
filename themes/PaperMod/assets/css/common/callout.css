@@ -1,0 +1,148 @@
+:root {
+  --color-red-rgb: 233, 49, 71;
+  --color-orange-rgb: 236, 117, 0;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-green-rgb: 8, 185, 78;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-blue-rgb: 8, 109, 221;
+  --color-purple-rgb: 120, 82, 238;
+  --color-pink-rgb: 213, 57, 132;
+}
+
+.dark {
+  --color-red-rgb: 251, 70, 76;
+  --color-orange-rgb: 233, 151, 63;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-green-rgb: 68, 207, 110;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-blue-rgb: 2, 122, 255;
+  --color-purple-rgb: 168, 130, 255;
+  --color-pink-rgb: 250, 153, 205;
+}
+
+body {
+  --callout-color-bug-rgb: var(--color-red-rgb);
+  --callout-color-error-rgb: var(--color-red-rgb);
+  --callout-color-example-rgb: var(--color-purple-rgb);
+  --callout-color-fail-rgb: var(--color-red-rgb);
+  --callout-color-important-rgb: var(--color-cyan-rgb);
+  --callout-color-info-rgb: var(--color-blue-rgb);
+  --callout-color-question-rgb: var(--color-orange-rgb);
+  --callout-color-success-rgb: var(--color-green-rgb);
+  --callout-color-summary-rgb: var(--color-cyan-rgb);
+  --callout-color-tip-rgb: var(--color-cyan-rgb);
+  --callout-color-todo-rgb: var(--color-blue-rgb);
+  --callout-color-warning-rgb: var(--color-orange-rgb);
+  --callout-color-quote-rgb: 158, 158, 158;
+}
+
+.callout {
+  margin: 1em 0;
+  padding: 0.75em 0.75em 0.75em 1.5em;
+  overflow: hidden;
+  background-color: rgba(var(--callout-color-rgb), 0.1);
+  border-radius: 0.25rem;
+}
+
+.callout p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.callout:not([disabled]) > summary {
+  cursor: pointer;
+}
+.callout > summary > * {
+  display: inline;
+}
+
+.callout > summary {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 0.4rem;
+  color: rgb(var(--callout-color-rgb));
+  line-height: 1.3;
+  align-items: flex-start;
+}
+
+.callout[open] > summary:not(:last-child) {
+  margin-bottom: 12px;
+}
+.callout > summary {
+  transition: margin-bottom 100ms ease-in-out;
+}
+
+.callout > summary::-webkit-details-marker {
+  display: none;
+}
+.callout[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+.callout > summary .chevron {
+  transition: transform 100ms ease-in-out;
+}
+
+.callout[disabled] > summary {
+  pointer-events: none;
+}
+.callout[disabled] > summary a {
+  pointer-events: initial;
+}
+.callout[disabled] > summary .chevron {
+  display: none;
+}
+
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"] {
+  --callout-color-rgb: var(--callout-color-summary-rgb);
+}
+.callout[data-callout="note"],
+.callout[data-callout="info"] {
+  --callout-color-rgb: var(--callout-color-info-rgb);
+}
+.callout[data-callout="todo"] {
+  --callout-color-rgb: var(--callout-color-todo-rgb);
+}
+.callout[data-callout="important"] {
+  --callout-color-rgb: var(--callout-color-important-rgb);
+}
+.callout[data-callout="tip"],
+.callout[data-callout="hint"] {
+  --callout-color-rgb: var(--callout-color-tip-rgb);
+}
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+  --callout-color-rgb: var(--callout-color-success-rgb);
+}
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+  --callout-color-rgb: var(--callout-color-question-rgb);
+}
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+  --callout-color-rgb: var(--callout-color-warning-rgb);
+}
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"] {
+  --callout-color-rgb: var(--callout-color-fail-rgb);
+}
+.callout[data-callout="danger"],
+.callout[data-callout="error"] {
+  --callout-color-rgb: var(--callout-color-error-rgb);
+}
+.callout[data-callout="bug"] {
+  --callout-color-rgb: var(--callout-color-bug-rgb);
+}
+.callout[data-callout="example"] {
+  --callout-color-rgb: var(--callout-color-example-rgb);
+}
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+  --callout-color-rgb: var(--callout-color-quote-rgb);
+}

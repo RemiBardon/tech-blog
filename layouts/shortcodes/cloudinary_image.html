@@ -1,0 +1,22 @@
+{{- if in (printf "%" .Params) "TODO" }}
+    {{- warnf "Image has TODO: %s" .Position }}
+{{- end }}
+
+{{- partial "cloudinary-image.html" (dict
+"class" (.Get "class")
+"link" (.Get "link")
+"target" (.Get "target")
+"rel" (.Get "rel")
+"assetId" (.Get "assetId")
+"title" (.Get "title")
+"caption" (.Get "caption")
+"width" (.Get "width")
+"height" (.Get "height")
+"attr" (.Get "attr")
+"attrlink" (.Get "attrlink")
+"datetime" (.Get "datetime")
+"noControls" (.Get "noControls")
+"noDownload" (.Get "noDownload")
+"lazy" (.Get "lazy" | default (.Page.Param "lazyImages"))
+"cloudinary" (.Page.Params.cloudinary)
+) | partial "minify.html" -}}

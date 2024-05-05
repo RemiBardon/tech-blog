@@ -1,0 +1,47 @@
+<ul class="category-grid">
+  {{- range site.Menus.main }}
+    {{- $allPages := slice }}
+    {{- range .Page.AllTranslations }}
+      {{- $allPages = $allPages | append .RegularPagesRecursive }}
+    {{- end }}
+    {{- $postCount := len $allPages }}
+    {{- if gt $postCount 0 }}
+  <li class="category-card" {{ (partialCached "category-card-style.html" . .) | safeHTMLAttr }}>
+    <img src="{{ partialCached "category-icon-link.html" . . }}" width="48" height="48" />
+    <div>
+      <span class="title">{{ .Page.Title | markdownify }}</span>
+      {{- $postCountText := (i18n "post_count" $postCount) | default (printf "%d&nbsp;post(s)" $postCount) }}
+      {{- $lastPostDate := time.Format ":date_medium" (index (sort $allPages "PublishDate" "desc") 0).PublishDate }}
+      <div class="subtitle">{{ printf "%s · %s" $postCountText $lastPostDate }}</div>
+    </div>
+    <a href="{{ .Page.Permalink }}" class="entry-link"></a>
+  </li>
+    {{- end }}
+  {{- end }}
+</ul>
+
+{{ define "partials/category-card-style.html" }}
+{{ $style := "" }}
+
+{{ with .Params.colorHSL }}
+{{ $style = (printf "style=\"border: 1.5px solid hsl(%s); background-color: hsla(%s / .25);\"" . .) }}
+{{ else }}
+{{ errorf "Menu item '%s' is missing param 'colorHSL'" .Name }}
+{{ end }}
+
+{{/* `return` statement can't go in the `with` as its scope is the function body's */}}
+{{ return $style }}
+{{ end }}
+
+{{ define "partials/category-icon-link.html" }}
+{{ $icon := "" }}
+
+{{ with .Params.icon }}
+{{ $icon = (printf "%s/%s" (site.BaseURL | strings.TrimSuffix "/") .) }}
+{{ else }}
+{{ errorf "Menu item '%s' is missing param 'icon'" .Name }}
+{{ end }}
+
+{{/* `return` statement can't go in the `with` as its scope is the function body's */}}
+{{ return $icon }}
+{{ end }}

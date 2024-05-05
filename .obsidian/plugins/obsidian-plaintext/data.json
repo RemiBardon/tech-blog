@@ -1,0 +1,9 @@
+{
+  "overrideViewsFromOtherPlugins": false,
+  "extensions": [
+    "yaml",
+    "yml",
+    "toml",
+    "json"
+  ]
+}

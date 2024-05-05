@@ -1,0 +1,8 @@
+{{ with .ctx }}{{/* Apply proper context from dict */ -}}
+
+<h1 class="post-title">
+  <span{{ with $.itemprop }} itemprop="{{ . }}"{{ end }}>{{ .Title | markdownify }}</span>
+  {{ if .Draft }}<sup class="entry-isdraft">[draft]</sup>{{ end }}
+</h1>
+
+{{- end }}{{/* End context */ -}}

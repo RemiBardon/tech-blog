@@ -1,0 +1,24 @@
+{{- define "main" }}
+
+<article class="post-single" itemscope itemtype="https://schema.org/Article">
+  <header class="post-header">
+    {{ partial "breadcrumb.html" . }}
+    {{ partial "post_title.html" (dict "ctx" . "itemprop" "headline") }}
+    {{ partial "post_description.html" . }}
+    {{ partial "post_meta.html" . }}
+  </header>
+
+  {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
+  {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
+
+  {{ partial "toc.html" (dict "page" .) }}
+  {{- $content := partial "post_content.html" (dict "ctx" . "itemprop" "articleBody") }}
+  {{ partial "anchored_headings.html" (dict
+  "content" $content
+  "disableAnchoredHeadings" (.Param "disableAnchoredHeadings")
+  ) }}
+  {{ partial "post_footer.html" . }}
+  {{ partial "comments.html" . }}
+</article>
+
+{{- end }}{{/* end main */}}

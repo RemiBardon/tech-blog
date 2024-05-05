@@ -1,0 +1,10 @@
+{{- if or .IsPage (gt (len (partialCached "pages" . .)) 0) }}
+  {{- $isForeign := ne .Language site.Language }}
+  <li>
+    {{- if eq .Type "species" }}
+      {{ partial "page-list-entry/species.html" (dict "ctx" . "isForeign" $isForeign) }}
+    {{- else }}
+      {{ partial "page-list-entry/default.html" (dict "ctx" . "isForeign" $isForeign) }}
+    {{- end }}
+  </li>
+{{- end }}

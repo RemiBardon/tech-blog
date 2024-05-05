@@ -1,0 +1,13 @@
+{{ $alt := "" }}
+
+{{ with .alt }}
+  {{ $alt = . }}
+{{ else }}
+  {{ with .caption }}
+    {{ $alt = . }}
+  {{ else }}
+    {{ $alt = .title }}
+  {{ end }}
+{{ end }}
+
+{{ return ($alt | plainify) }}

@@ -1,0 +1,11 @@
+{{ $domain := "https://res.cloudinary.com" }}
+{{ with site.Params.cloudinary.downloadDomain }}
+  {{ $domain = (printf "http://%s" .) }}
+{{ end }}
+
+{{ $cloudName := site.Params.cloudinary.cloudName }}
+{{ if not $cloudName }}
+  {{ errorf "Site param 'cloudinary.cloudName' not found. Add it to your site configuration." }}
+{{ end }}
+
+{{ return (printf "%s/%s" $domain $cloudName) }}

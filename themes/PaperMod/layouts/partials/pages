@@ -1,0 +1,15 @@
+{{- $pages := slice }}
+{{- $translationKeys := slice }}
+{{- /* `.AllTranslations` gives translations sorted by weight, we want the current language first */}}
+{{- $allTranslations := slice .Page }}
+{{- $allTranslations = $allTranslations | append .Page.Translations }}
+{{- range $allTranslations }}
+  {{- $newPages := .Pages }}
+  {{- range $page := $newPages }}
+    {{- if not (in $translationKeys $page.TranslationKey) }}
+      {{- $pages = $pages | append $page }}
+      {{- $translationKeys = $translationKeys | append $page.TranslationKey }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- return (.Paginate $pages).Pages.ByPublishDate.Reverse }}

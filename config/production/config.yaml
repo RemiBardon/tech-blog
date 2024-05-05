@@ -1,0 +1,14 @@
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+############### Theme config ###############
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # Required by the search bar

@@ -1,0 +1,26 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#folder-specific-settings
+{
+  "language_overrides": {
+    "Markdown": {
+      // Formating breaks Hugo shortcodes as it interprets `>}}` as a comment block.
+      "format_on_save": "off",
+      // Removing trailing whitespaces would remove manual line breaks (two spaces in Markdown).
+      "remove_trailing_whitespace_on_save": false
+    },
+    "HTML": {
+      // Formating breaks Hugo templates.
+      "format_on_save": "off",
+      "hard_tabs": false,
+      "tab_size": 2,
+      // Sometimes we cant partials to not have a trailing newline.
+      "ensure_final_newline_on_save": false
+    },
+    "CSS": {
+      "hard_tabs": false,
+      "tab_size": 2
+    }
+  }
+}

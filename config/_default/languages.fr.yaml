@@ -1,0 +1,60 @@
+############################## Français ##############################
+languageName: Fr 🇫🇷
+languageCode: fr-fr
+contentDir: content/french
+weight: 2
+title: Blog de Rémi Bardon
+disabled: false
+
+params:
+  description: Un blog où Rémi Bardon parle de différents sujets.
+
+  label:
+    text: Accueil
+    # icon: /apple-touch-icon.png
+    # iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: true # needs to be explicitly set
+    imageUrl: https://avatars.githubusercontent.com/u/37386490?v=4
+    imageWidth: 196
+    imageHeight: 196
+    title: Rémi Bardon
+    subtitle: Journal de développement dans lequel je partage des choses que j'apprends et ce sur quoi je travaille.
+    imageTitle: Un selfie de moi
+    # buttons:
+    #   - name: Posts
+    #     url: posts
+    #   - name: Tags
+    #     url: tags
+
+  # home-info mode
+  homeInfoParams:
+    Title: Salut 👋🏻
+    Content: Bienvenue sur mon blog
+
+menu:
+  header:
+    - name: Séries
+      pageRef: /series
+      weight: 10
+    - name: Catégories
+      pageRef: /categories
+      weight: 20
+    - name: Tags
+      pageRef: /tags
+      weight: 30
+  main:
+    - name: Développement
+      pageRef: /dev
+      weight: 3
+      params:
+        icon: icons/icons8-bash.png
+        colorHSL: "200 100% 75%"
+    - name: Technologie
+      pageRef: /tech
+      weight: 4
+      params:
+        icon: icons/icons8-technology.png
+        colorHSL: "120 75% 50%"

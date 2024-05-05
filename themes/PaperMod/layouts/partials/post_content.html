@@ -1,0 +1,9 @@
+{{ with .ctx }}{{/* Apply proper context from dict */ -}}
+
+{{ with $content := .Content -}}
+<section class="post-content"{{ with $.itemprop }} itemprop="{{ . }}"{{ end }}>
+  {{ $content }}
+</section>
+{{- end }}
+
+{{- end }}{{/* End context */ -}}

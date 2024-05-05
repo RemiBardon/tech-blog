@@ -1,0 +1,24 @@
+{{ with .ctx }}{{/* Apply proper context from dict */ -}}
+  <article class="page-list-entry{{ if $.isForeign }} foreign{{ end }}">
+    {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+    {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+    <header class="entry-header">
+      <h2>
+        {{- .Title | markdownify }}
+        {{ if $.isForeign }}({{ .Language.LanguageName }}){{ end }}
+        {{- if .Draft }}<sup class="entry-isdraft">&nbsp;&nbsp;[draft]</sup>{{- end }}
+      </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+      <p>{{ .Summary | markdownify }}{{ if .Truncated }}&hellip;{{ end }}</p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+      {{- partial "post_metadata.html" (dict "ctx" . "hideLastMod" true "hideAuthorIfNotSpecial" true) -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+  </article>
+{{- end }}{{/* End context */ -}}

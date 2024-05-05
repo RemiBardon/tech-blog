@@ -1,0 +1,122 @@
+- id: prev_page
+  translation: "Page Précédente"
+
+- id: next_page
+  translation: "Page Suivante"
+
+- id: read_time
+  translation:
+    one : "1 min"
+    other: "{{ .Count }} min"
+
+- id: datetime
+  translation: "{{ .date }} à {{ .time }}"
+
+- id: last_mod
+  translation: "Modifié le {{ . }}"
+
+- id: words
+  translation:
+    one : "mot"
+    other: "{{ .Count }} mots"
+
+- id: toc
+  translation: "Table des Matières"
+
+- id: translations
+  translation: "Traductions"
+
+- id: home
+  translation: "Accueil"
+
+- id: edit_post
+  translation: "Modifier"
+
+- id: code_copy
+  translation: "copier"
+
+- id: code_copied
+  translation: "copié!"
+
+- id: post_count
+  translation:
+    one : "1 article"
+    other: "{{ . }} articles"
+
+- id: not_found
+  translation: Cette page n’existe pas ou vous n’y avez pas accès.
+
+- id: download
+  translation: Télécharger
+
+- id: fullscreen
+  translation: Plein écran
+
+- id: private_page_warning
+  translation: >
+    Cette page est privée.
+    Il ne sert à rien de partager un lien vers cette page car la plupart des gens n’y ont pas accès.
+
+- id: created_with
+  translation: Créé avec
+
+- id: served_by
+  translation: Servi par
+
+- id: hosted_by
+  translation: Hébergé par
+
+- id: note
+  translation: Note
+- id: abstract
+  translation: Résumé
+- id: summary
+  translation: Résumé
+- id: tldr
+  translation: _TL;DR_
+- id: info
+  translation: Information
+- id: todo
+  translation: À faire
+- id: tip
+  translation: Astuce
+- id: hint
+  translation: Indication
+- id: important
+  translation: Important
+- id: success
+  translation: Succès
+- id: check
+  translation: Vérification
+- id: done
+  translation: Fait
+- id: question
+  translation: Question
+- id: help
+  translation: Aide
+- id: faq
+  translation: FAQ
+- id: warning
+  translation: Avertissement
+- id: caution
+  translation: Attention
+- id: attention
+  translation: Attention
+- id: failure
+  translation: Échec
+- id: fail
+  translation: Échec
+- id: missing
+  translation: Manquant
+- id: danger
+  translation: Danger
+- id: error
+  translation: Erreur
+- id: bug
+  translation: _Bug_
+- id: example
+  translation: Exemple
+- id: quote
+  translation: Citation
+- id: cite
+  translation: Citation

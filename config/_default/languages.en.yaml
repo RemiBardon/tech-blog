@@ -1,0 +1,60 @@
+############################## English ##############################
+languageName: En 🇺🇸
+languageCode: en-us
+contentDir: content/english
+weight: 1
+title: Rémi Bardon's blog
+disabled: false
+
+params:
+  description: A blog where Rémi Bardon talks about various topics.
+
+  label:
+    text: Home
+    # icon: /apple-touch-icon.png
+    # iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: true # needs to be explicitly set
+    imageUrl: https://avatars.githubusercontent.com/u/37386490?v=4
+    imageWidth: 196
+    imageHeight: 196
+    title: Rémi Bardon
+    subtitle: Dev journal where I share some of what I learn and what I work on.
+    imageTitle: A selfie of me
+    # buttons:
+    #   - name: Posts
+    #     url: posts
+    #   - name: Tags
+    #     url: tags
+
+  # home-info mode
+  homeInfoParams:
+    Title: Hi there 👋🏻
+    Content: Welcome to my blog
+
+menu:
+  header:
+    - name: Series
+      pageRef: /series
+      weight: 10
+    - name: Categories
+      pageRef: /categories
+      weight: 20
+    - name: Tags
+      pageRef: /tags
+      weight: 30
+  main:
+    - name: Development
+      pageRef: /dev
+      weight: 3
+      params:
+        icon: icons/icons8-bash.png
+        colorHSL: "200 100% 75%"
+    - name: Technology
+      pageRef: /tech
+      weight: 4
+      params:
+        icon: icons/icons8-technology.png
+        colorHSL: "120 75% 50%"

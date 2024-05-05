@@ -1,0 +1,21 @@
+<footer class="post-footer">
+  {{- with ($.GetTerms "tags") }}
+  <ul class="terms">
+    {{- range . }}
+    <li>
+      <a href="{{ .Permalink }}" class="term">
+        <span class="link-title">{{ .LinkTitle | markdownify }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- if (.Param "ShowPostNavLinks") }}
+    {{ partial "post_paginav.html" . }}
+  {{- end }}
+
+  {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    {{ partial "share_icons.html" . }}
+  {{- end }}
+</footer>

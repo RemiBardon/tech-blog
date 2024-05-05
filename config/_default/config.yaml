@@ -1,0 +1,150 @@
+############################## Default configuration ############################
+baseURL: https://tech.remibardon.name
+theme: PaperMod
+copyright: Copyright © 2022–2024 Rémi Bardon
+author:
+  name: Rémi Bardon
+  email: remi@remibardon.name
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+paginate: 100
+outputs:
+  _merge: deep
+mediaTypes:
+  _merge: deep
+
+############### Multilingual mode ###############
+defaultContentLanguage: en
+
+############### Options ###############
+# `.git` folder is deleted in production
+enableGitInfo: false
+removePathAccents: true
+
+# I don't want analytics
+googleAnalytics: ""
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+privacy:
+  YouTube:
+    # Defined in <https://github.com/gohugoio/hugo/blob/79a17d9e55d280fdaef3fe294a88027923eff62d/tpl/tplimpl/embedded/templates/shortcodes/youtube.html#L3>
+    PrivacyEnhanced: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+  highlight:
+    noClasses: false
+
+############### Development config ###############
+enableRobotsTXT: false
+buildDrafts: true
+buildFuture: true
+buildExpired: true
+
+############### Theme config ###############
+params:
+  # keywords: [Blog]
+  author: Rémi Bardon
+  # author: ["Me", "You"] # multiple authors
+  # images: ["<link or path of image for opengraph, twitter-cards>"]
+  # DateFormat: "January 2, 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+  displayFullLangName: true
+
+  mainSections: [page, public, dev]
+
+  ShowReadingTime: true
+  ShowLastMod: true
+  ShowShareButtons: false
+  ShareButtons: []
+  ShowPostNavLinks: true
+  ShowBreadcrumb: true
+  ShowCodeCopyButtons: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  assets:
+    disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    # favicon: "<link / abs url>"
+    # favicon16x16: "<link / abs url>"
+    # favicon32x32: "<link / abs url>"
+    # apple_touch_icon: "<link / abs url>"
+    # safari_pinned_tab: "<link / abs url>"
+
+  socialIcons:
+    - name: GitHub
+      url: "https://github.com/RemiBardon"
+    - name: Twitter
+      url: "https://twitter.com/RemiBardon"
+    - name: LinkedIn
+      url: "https://www.linkedin.com/in/remi-bardon/"
+    - name: StackOverflow
+      url: "https://stackoverflow.com/users/10967642/rémi-b"
+
+  # I don't want analytics
+  analytics:
+    google:
+      SiteVerificationTag: ""
+    bing:
+      SiteVerificationTag: ""
+    yandex:
+      SiteVerificationTag: ""
+
+  cover:
+    hidden: false # hide everywhere but not in structured data
+    hiddenInList: false # hide on list pages and home
+    hiddenInSingle: false # hide on single page
+
+  # editPost:
+  #   URL: https://github.com/RemiBardon/blog/tree/main/content
+  #   # Text: Suggest Changes
+  #   appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+  cloudinary:
+    # HTTPS is a paid feature
+    #domain: assets.remibardon.name
+    downloadDomain: assets.remibardon.name
+    cloudName: remi-bardon
+
+  private_allowed:
+    - famille
+    - amis
+    - collegues
+
+  lazyImages: false
+  lazyVideos: false
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+# pygmentsUseClasses: true
+# markup:
+#     highlight:
+#         # anchorLineNos: true
+#         codeFences: true
+#         guessSyntax: true
+#         lineNos: true
+#         style: monokai
