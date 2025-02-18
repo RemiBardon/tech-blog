@@ -1,5 +1,5 @@
 ############################## Default configuration ############################
-baseURL: https://tech.remibardon.name
+baseURL: https://blog.dev.remibardon.name
 theme: PaperMod
 copyright: Copyright © 2022–2024 Rémi Bardon
 taxonomies:
