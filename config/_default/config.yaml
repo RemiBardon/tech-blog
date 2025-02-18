@@ -6,7 +6,8 @@ taxonomies:
   category: categories
   tag: tags
   series: series
-paginate: 100
+pagination:
+  pagerSize: 100
 outputs:
   _merge: deep
 mediaTypes:
