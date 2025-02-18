@@ -5,6 +5,7 @@ summary: &summary >
   Je vous partage ici mes conseils pour passer un voyage serein.
 description: *summary
 date: 2023-11-04
+lastmod: 2024-07-23
 tags:
   - Backup
   - Conseils
@@ -16,8 +17,12 @@ tags:
   - SSD
   - Stockage
   - Voyage
-draft: true
+draft: false
 ---
+
+{{< callout "note" >}}
+Cet article n’est pas entièrement rédigé. Comme souvent, je l'ai publié pour qu’au moins une partie soit lisible. Je ne terminerai un jour™.
+{{< /callout >}}
 
 > ***Disclaimer* :**
 > J’utilise un Mac et un iPhone, alors les outils que je mentionne ici sont pour certains spécifiques à ces environnements.
@@ -47,7 +52,7 @@ Il faut donc se préparer au fait que l’on nous vole nos affaires.
 
 ### Ce que l’on veut éviter
 
-Quand on est *digital nomad*, il y a plusieurs choses que l’on veut éviter[^pas-d-ordre] :
+Quand on est *digital nomad*, il y a plusieurs choses que l’on veut éviter (sans ordre particulier) :
 
 - Perdre l’accès à des comptes
 - Perdre des données
@@ -55,7 +60,7 @@ Quand on est *digital nomad*, il y a plusieurs choses que l’on veut éviter[^p
 
 Les dangers :
 
-- Vol : dans une cafétéria, en terrace, à la plage, dans un *hostel*, dans un bus…
+- Vol : dans une cafétéria, en terrasse, à la plage, dans un *hostel*, dans un bus…
 - Perte : n’importe où, n’importe quand
 - Destruction : incendie, innondation…
 
@@ -77,13 +82,14 @@ Tout comme il ne faut pas mettre tous ses papiers et tout son argent au même en
 À l’inverse des papiers d’identité qui peuvent être refabriqués[^refabriquer-id] ou de l’argent que l’on gagnera à nouveau, nos données ne sont pas récupérables si elles sont définitivement inaccessibles (perte[^perte], vol, destruction…).
 C’est pourquoi il faut faire plusieurs copies que l’on stocke à différents endroits.
 
-[^refabriquer-id]: C’est certainement très chiant mais c’est **possible**
+[^refabriquer-id]: C’est certainement très compliqué mais c’est **possible**.
 
 Mon fonctionnement (que je recommande) est le suivant :
 
 - Un SSD de 2 To[^sandisk-extreme] resté en France, contenant :
   - Une sauvegarde [Time Machine] de mon Mac, faite le jour avant mon départ
-  - Une sauvegarde de ma photothèque iCloud entière, 
+  - Une sauvegarde de ma photothèque iCloud entière
+- TODO: Terminer la liste
 
 ## Règle n°3 : Chiffrer tous ses disques {#tout-chiffrer}
 
@@ -91,19 +97,20 @@ Nos données ne sont pas toutes publiques, alors ça devrait être un réflexe d
 
 - Sur macOS : Activer [FileVault]
 - Sur les stockages externes : Utiliser des formats permettant le chiffrement comme l’APFS
-- Utilisable sur l’iPhone 16
+  - Rassurez-vous, un stockage chiffré est toujours lisible par un iPhone. En branchant le stockage chiffré, l’iPhone demandera son mot de passe pour pouvoir lire les données.
+- TODO: Terminer la liste
 
 ## Règle n°4 : Ne pas dépendre d’une carte SIM / utiliser une clé d’authentification {#security-key}
 
 J’ai une [YubiKey 5C Nano], et elle m’a déjà sorti d’une très mauvaise situation.
 
-J’ai récemment [noyé mon téléphone](https://blog.remibardon.name/aventures/2023-10-mexique/2023-10-17-j-ai-noye-mon-telephone/) pendant un voyage au Mexique, et j’ai du récupérer les accès TODO
+J’ai récemment [noyé mon téléphone](https://blog.remibardon.name/aventures/2023-10-mexique/2023-10-17-j-ai-noye-mon-telephone/) pendant un voyage au Mexique, et j’ai du récupérer les accès à tous mes comptes. TODO: Finir paragraphe
 
 Bref, ça peut paraître cher, mais c’est très pratique.
 
-Idéalement, il faudrait deux clés au cas où on en perdrait une, mais dans ce cas on va dire que la carte SIM est le dernier recours
+Idéalement, il faudrait deux clés au cas où on en perdrait une, mais dans certains cas la carte SIM remplit parfois ce rôle (ne pas la garder avec la clé d’authentification).
 
-- Utilisable sur l’iPhone 16
+TODO: [YubiKey 5C Nano] utilisable directement sur l’iPhone 15 grâce à l'USB-C, les autres utilisant le NFC.
 
 ## Règle n°5 : Partager des accès *legacy* {#legacy-access}
 
@@ -123,6 +130,7 @@ Pour information, avec Apple le code d'accès se présente sous la forme d'une p
 Il faut ensuite la partager à une personne de confiance (avec AirDrop par exemple pour éviter tout transfert par Internet).
 
 TODO: Il faut deux clés pour activer la 2FA physique sur iCloud
+
 TODO: Approuver le numéro de téléphone temporaire tout de suite sur iCloud (pour Wallet… ne fonctionne pas)
 
 ## Quelques conseils {#conseils}
@@ -178,46 +186,70 @@ Elle encombre notre affichage et cause l’affichage d’une alerte au moment d�
 Ce serait bien si on pouvait ne pas la voir, hein ? Eh bien c’est possible !
 
 On peut désactiver l’*auto-mount* d’une partition sur notre appareil, sans empêcher les autres personnes de la voir apparaître.
-Pour cela, il faut :
+Pour cela, il suffit de:
 
-1. Récupérer le "Volume UUID" de la partition
+```bash
+sudo vifs
+```
+
+puis insérer:
+
+```txt
+LABEL=DRIVE_OWNER none auto rw,noauto
+```
+
+{{< callout "tip" >}}
+`cat /etc/fstab` permet de vérifier que l'écriture a bien marché.
+{{< /callout >}}
+
+Pour désactiver l’*auto-mount* d’une autre partition sur notre appareil, voici les étapes à suivre:
+
+1. Récupérer le "Volume UUID" de la partition (en remplaçant `<VOLUME>` par le nom du volume) :
 
    ```bash
-   diskutil info /Volumes/DRIVE_OWNER
+   diskutil info /Volumes/<VOLUME>
    ```
 
    {{< collapse summary="Exemple de résultat attendu" >}}
 
    ```txt
-      Device Identifier:         disk10s3
-      Device Node:               /dev/disk10s3
+      Device Identifier:         disk4s3
+      Device Node:               /dev/disk4s3
       Whole:                     No
-      Part of Whole:             disk10
-      Volume Name:               DRIVE_OWNER
+      Part of Whole:             disk4
+
+      Volume Name:               UNIVERSAL
       Mounted:                   Yes
-      Mount Point:               /Volumes/DRIVE_OWNER
+      Mount Point:               /Volumes/UNIVERSAL
+
       Partition Type:            Microsoft Basic Data
-      File System Personality:   MS-DOS FAT16
-      Type (Bundle):             msdos
-      Name (User Visible):       MS-DOS (FAT16)
+      File System Personality:   ExFAT
+      Type (Bundle):             exfat
+      Name (User Visible):       ExFAT
+
       OS Can Be Installed:       No
       Media Type:                Generic
       Protocol:                  USB
       SMART Status:              Not Supported
-      Volume UUID:               D3F57EA7-3FA4-3CE0-BAF0-6FF4F2F39F42
-      Disk / Partition UUID:     98C8D909-565A-4EC2-B250-3E6C23C73DB4
-      Partition Offset:          128344653824 Bytes (250673152 512-Byte-Device-Blocks)
-      Disk Size:                 172.0 MB (171966464 Bytes) (exactly 335872 512-Byte-Units)
+      Volume UUID:               884434A4-1EAF-3017-8527-57B6814B3524
+      Disk / Partition UUID:     612DFF07-D670-4638-843D-E9B0B565DC62
+      Partition Offset:          1936365453312 Bytes (3781963776 512-Byte-Device-Blocks)
+
+      Disk Size:                 64.0 GB (63999836160 Bytes) (exactly 124999680 512-Byte-Units)
       Device Block Size:         512 Bytes
-      Volume Total Space:        171.8 MB (171782144 Bytes) (exactly 335512 512-Byte-Units)
-      Volume Used Space:         2.2 MB (2240512 Bytes) (exactly 4376 512-Byte-Units) (1.3%)
-      Volume Free Space:         169.5 MB (169541632 Bytes) (exactly 331136 512-Byte-Units) (98.7%)
+
+      Volume Total Space:        64.0 GB (63996821504 Bytes) (exactly 124993792 512-Byte-Units)
+      Volume Used Space:         16.6 GB (16630677504 Bytes) (exactly 32481792 512-Byte-Units) (26.0%)
+      Volume Free Space:         47.4 GB (47366144000 Bytes) (exactly 92512000 512-Byte-Units) (74.0%)
       Allocation Block Size:     512 Bytes
+
       Media OS Use Only:         No
       Media Read-Only:           No
       Volume Read-Only:          No
+
       Device Location:           External
       Removable Media:           Fixed
+
       Solid State:               Yes
    ```
 
@@ -227,13 +259,19 @@ Pour cela, il faut :
    sudo vifs
    ```
 
-   puis insérer (en remplaçant `<UUID>` par le "Volume UUID" trouvé plus tôt) :
+   puis insérer (en remplaçant `<UUID>` par le « _Volume UUID_ » trouvé plus tôt et `<TYPE>` par le « _Type (Bundle)_ » ou `auto` pour faire simple) :
 
    ```txt
-   UUID=<UUID> none msdos rw,noauto
+   UUID=<UUID> none <TYPE> rw,noauto
    ```
 
-3. Vérifier le contenu de `/etc/fstab`, qui devrait contenir la nouvelle ligne :
+   {{< callout "important" >}}
+   Sur macOS Sequoia, le « _Type (Bundle)_ » `msdos` n’est pas  interprété correctement.
+   Dans ce cas, il vaut donc mieux utiliser `auto` et non `msdos`.
+   Pour plus d’informations, consultez _[Automount settings from fstab not respected after Sequoia update - Apple Community](https://discussions.apple.com/thread/255831146)_.
+   {{< /callout >}}
+
+4. Vérifier le contenu de `/etc/fstab`, qui devrait contenir la nouvelle ligne :
 
    ```bash
    cat /etc/fstab
@@ -242,37 +280,39 @@ Pour cela, il faut :
    {{< collapse summary="Mon fichier `/etc/fstab`" >}}
 
    ```txt
-   # RB_T5
-   UUID=D3F57EA7-3FA4-3CE0-BAF0-6FF4F2F39F42 none msdos rw,noauto
-   # RB_T7
-   UUID=E4E39941-A0CC-33D0-AC23-1C43C35232D7 none msdos rw,noauto
-   UUID=4318F670-8188-3ECD-9356-25AAB84B9C28 none exfat rw,noauto
-   # RB_SX
-   UUID=7F9B70A4-0EE0-35BF-92DA-64AFD6B2992E none msdos rw,noauto
    #
    # Warning - this file should only be modified with vifs(8)
    #
    # Failure to do so is unsupported and may be destructive.
    #
+
+   # NOTE: `auto` and not `msdos` because [Automount settings from fstab not respected after Sequoia update - Apple Community](https://discussions.apple.com/thread/255831146).
+   LABEL=DRIVE_OWNER none auto rw,noauto
+
+   # RB_T7 / UNIVERSAL
+   UUID=4318F670-8188-3ECD-9356-25AAB84B9C28 none exfat rw,noauto
+   # RB_SX / UNIVERSAL
+   UUID=884434A4-1EAF-3017-8527-57B6814B3524 none exfat rw,noauto
    ```
 
-   > La partition `exfat` est une partition Windows, utilisée comme stockage lecture/écriture pour mon *dual boot* Windows (puisque la partition Bootcamp permet seulement la lecture).
+   > Les partitions `exfat` sont des partitions pour Windows, utilisées comme stockage lecture/écriture pour mon *dual boot* Windows (puisque la partition Bootcamp permet seulement la lecture) et pour accéder à des fichiers sur Linux.
 
    {{< /collapse >}}
 
 ### Augmenter l’espace utilisable sur une partition APFS
 
-Les partitions APFS ont une  sur un disque utilisé par [Time Machine]
+TODO
+
+<!-- Les partitions APFS ont une  sur un disque utilisé par [Time Machine] -->
 
 ### Fournir des codes d’accès à une connaissance
 
+TODO
+
 ## D’autres conseils
 
-Je publierai bientôt™ un autre article pour revenir sur une mauvaise expérience de voyage,
-en analysant ce qui s’est mal enchaîné et en détaillant ce que je ferai mieux la prochaine fois.
-Je partagerai le lien ici quand l’article sera publié.
+Je publierai bientôt™ un autre article pour revenir sur une mauvaise expérience de voyage, en analysant ce qui s’est mal enchaîné et en détaillant ce que je ferai mieux la prochaine fois. Je partagerai le lien ici quand l’article sera publié.
 
-[^pas-d-ordre]: Sans ordre particulier
 [^perte]: Voir [« Créer une partition avec nos coordonnées »](#partition-drive_owner) pour des conseils permettant de récupérer un stockage perdu
 [^sandisk-extreme]: Le [SanDisk Extreme 2 To](https://www.amazon.fr/dp/B08HN37XC1/ref=pe_27091421_487052621_TE_item) (NVMe, USB-C, USB 3.2, 1050 Mo/s, IP65)
 

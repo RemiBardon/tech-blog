@@ -5,6 +5,7 @@ summary: &summary |
 description: *summary
 date: 2023-12-10
 # publishDate: 2023-12-11
+lastmod: 2024-12-06
 draft: false
 weight: 90
 tags:
@@ -30,7 +31,7 @@ The first reason is that I just started as a freelance developer and I created a
 
 - I had too many SSH keys
 - I changed my email address
-- GPG keys contain identity information
+- GPG keys contain identity information while SSH keys do not
 
 ## What I want {#what-i-want}
 
@@ -48,7 +49,7 @@ The first reason is that I just started as a freelance developer and I created a
   - Require a "card tap" on every SSH authentication
   - Require a "card tap" on every git signing operation
 
-My YubiKey supports it, and I don't use any tool that don't so I'm going to use the state-of-the-art [ed25519] signature scheme for my keys instead of heavier 4096 bits [RSA] keys.
+My YubiKey supports it, and I don't use any tool that doesn't so I'm going to use the state-of-the-art [ed25519] signature scheme for my keys instead of heavier 4096 bits [RSA] keys.
 
 ## The whole process {#process}
 
@@ -68,6 +69,31 @@ This article has been written using `gnupg: stable 2.4.3`.
 
 ### Creating the primary key pair {#creating-the-primary-key-pair}
 
+{{< callout "tldr" "-" >}}
+
+  ```bash
+  gpg --full-gen-key --expert
+  ```
+
+  ```txt
+  Your selection? 11
+  Your selection? S
+  Your selection? Q
+  Your selection? 1
+  Key is valid for? (0) 0
+  Is this correct? (y/N) y
+  Real name: John Doe
+  Email address: john.doe@example.org
+  Comment: General purpose personal key
+  Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+  ```
+
+  ```bash
+  KEY_ID='DFF5C72AE657A8361A57D937A6D3E049FD2A88C4' # (Insert your key)
+  ```
+
+{{< /callout >}}
+
 To create a GnuPG key, you need to run `gpg --full-gen-key`. However, it only shows a limited number of options, which do not provide the opportunity to create a [Certify]-only [primary key pair]:
 
 {{< callout "example" "-" "The options available by default" >}}
@@ -85,7 +111,7 @@ To create a GnuPG key, you need to run `gpg --full-gen-key`. However, it only sh
     (9) ECC (sign and encrypt) *default*
     (10) ECC (sign only)
     (14) Existing key from card
-  Your selection? 
+  Your selection?
   ```
 
 {{< /callout >}}
@@ -134,7 +160,7 @@ We want to set our own capabilities to choose [Certify] only and I want to use [
     (A) Toggle the authenticate capability
     (Q) Finished
 
-  Your selection? 
+  Your selection?
   ```
 
 {{< /callout >}}
@@ -197,7 +223,7 @@ The [primary key pair] will be kept somewhere safe and we will delete it locally
 
   GnuPG needs to construct a user ID to identify your key.
 
-  Real name: 
+  Real name:
   ```
 
 {{< /callout >}}
@@ -275,31 +301,31 @@ After key generation succeeds, `gpg` prints different information:
 
   {{< callout "example" "-" "The content of this certificate" >}}
 
-  
+
     ```txt
     This is a revocation certificate for the OpenPGP key:
-    
+
     pub   ed25519 2023-12-12 []
           DFF5C72AE657A8361A57D937A6D3E049FD2A88C4
     uid          John Doe (General purpose personal key) <john.doe@example.org>
-    
+
     A revocation certificate is a kind of "kill switch" to publicly
     declare that a key shall not anymore be used.  It is not possible
     to retract such a revocation certificate once it has been published.
-    
+
     Use it to revoke this key in case of a compromise or loss of
     the secret key.  However, if the secret key is still accessible,
     it is better to generate a new revocation certificate and give
     a reason for the revocation.  For details see the description of
     of the gpg command "--generate-revocation" in the GnuPG manual.
-    
+
     To avoid an accidental use of this file, a colon has been inserted
     before the 5 dashes below.  Remove this colon with a text editor
     before importing and publishing this revocation certificate.
-    
+
     :-----BEGIN PGP PUBLIC KEY BLOCK-----
     Comment: This is a revocation certificate
-    
+
     iHgEIBYKACAWIQTf9ccq5leoNhpX2Tem0+BJ/SqIxAUCZXixhgIdAAAKCRCm0+BJ
     /SqIxIzvAQDtNTas4P/meRRwX9Cl4gdHGsEQWvFVuEeiDKhSn8AR1AEA/m53PfeR
     wv2JWrZuQy8DRSjsSRGqYVb1fWODFZ8MDAs=
@@ -315,13 +341,13 @@ After key generation succeeds, `gpg` prints different information:
   {{< /callout >}}
 
 - It also prints information about the key:
-  
+
   ```txt
   pub   ed25519 2023-12-12 [C]
         DFF5C72AE657A8361A57D937A6D3E049FD2A88C4
   uid                      John Doe (General purpose personal key) <john.doe@example.org>
   ```
-  
+
   All of this information is public, and I broke down what it means in [After generating a key](#gpg-output-key-generation).
 
 To make things easier later, let's save the key fingerprint in an environment variable:
@@ -333,11 +359,62 @@ KEY_ID='DFF5C72AE657A8361A57D937A6D3E049FD2A88C4'
 This value can then be used for every `gpg` operation to identify the key.
 
 {{< callout "tip" >}}
-
   You could also use the email address or even just part of the name (like "John") if it is unique. I prefer using the fingerprint to ensure uniqueness.
 {{< /callout >}}
 
 ### Creating the subkey pairs {#creating-the-subkey-pairs}
+
+
+{{< callout "tldr" "-" >}}
+
+  ```bash
+  gpg --edit-key --expert "${KEY_ID:?}"
+  ```
+
+  [Sign] subkey:
+
+  ```txt
+  gpg> addkey
+  Your selection? 10
+  Your selection? 1
+  Key is valid for? (0) 1y
+  Is this correct? (y/N) y
+  Really create? (y/N) y
+  ```
+
+  [Encrypt] subkey:
+
+  ```txt
+  gpg> addkey
+  Your selection? 12
+  Your selection? 1
+  Key is valid for? (0) 1y
+  Is this correct? (y/N) y
+  Really create? (y/N) y
+  ```
+
+  [Authenticate] subkey:
+
+  ```txt
+  gpg> addkey
+  Your selection? 11
+  Your selection? S
+  Your selection? A
+  Your selection? Q
+  Your selection? 1
+  Key is valid for? (0) 1y
+  Is this correct? (y/N) y
+  Really create? (y/N) y
+  ```
+
+  ```txt
+  gpg> save
+  ```
+
+  [Sign]: {{< relref "what-are-gpg-keys" >}}#capability-sign
+  [Encrypt]: {{< relref "what-are-gpg-keys" >}}#capability-encrypt
+  [Authenticate]: {{< relref "what-are-gpg-keys" >}}#capability-authenticate
+{{< /callout >}}
 
 Now that we have a [primary key pair], we can derive the three subkeys from it. For that, we use `gpg --edit-key` with the `--expert` flag to be sure we can select the desired capabilities:
 
@@ -366,14 +443,15 @@ We now arrive in a console-like environment where we can interact with the GPG k
       trust: ultimate      validity: ultimate
   [ultimate] (1). John Doe (General purpose personal key) <john.doe@example.org>
 
-  gpg> 
+  gpg>
   ```
 
 {{< /callout >}}
 
 {{< callout "tip" >}}
-
   You can find all operations available by running `help` or via [edit-key · The GNU Privacy Handbook].
+
+  [edit-key · The GNU Privacy Handbook]: https://www.gnupg.org/gph/en/manual/r899.html "edit-key · The GNU Privacy Handbook"
 {{< /callout >}}
 
 Since we want to add a new subkey, we will use `addkey`[^addkey]:
@@ -473,7 +551,7 @@ After that, `gpg` generates a new key and prints this time information about the
       created: 2023-12-12  expires: 2024-12-11  usage: S
   [ultimate] (1). John Doe (General purpose personal key) <john.doe@example.org>
 
-  gpg> 
+  gpg>
   ```
 
 {{< /callout >}}
@@ -532,7 +610,7 @@ Now that we have the [Sign] (`S`) subkey, we can add an [Encrypt] subkey by doin
       created: 2023-12-12  expires: 2024-12-11  usage: E
   [ultimate] (1). John Doe (General purpose personal key) <john.doe@example.org>
 
-  gpg> 
+  gpg>
   ```
 
 {{< /callout >}}
@@ -557,7 +635,7 @@ Finally, let's create the third and last subkey, with [Authenticate] capability:
     (12) ECC (encrypt only)
     (13) Existing key
     (14) Existing key from card
-  Your selection? 
+  Your selection?
   ```
 
 {{< /callout >}}
@@ -632,7 +710,7 @@ As you can see, there is no "ECC (authenticate only)" option, so we will need to
       created: 2023-12-12  expires: 2024-12-11  usage: A
   [ultimate] (1). John Doe (General purpose personal key) <john.doe@example.org>
 
-  gpg> 
+  gpg>
   ```
 
 {{< /callout >}}
@@ -662,8 +740,9 @@ gpg --export-secret-subkeys --armor "${KEY_ID}" | pbcopy
 ```
 
 {{< callout "caution" >}}
-
   Keep in mind that this does not replace the `--export-secret-keys` backup, as the [primary key pair] private key is vital!
+
+  [primary key pair]: {{< relref "what-are-gpg-keys" >}}#primary-key-pair
 {{< /callout >}}
 
 ## Q&A
@@ -746,98 +825,6 @@ gpg> key <n>
 gpg> delkey
 ```
 
-### List connected YubiKeys and get information about them
-
-```bash
-brew install ykman # YubiKey configuration manager
-ykman list
-```
-
-```txt
-YubiKey 5C Nano (5.4.3) [FIDO+CCID] Serial: 20141XXX
-```
-
-### Reset the OpenPGP application on the YubiKey
-
-See [Resetting the OpenPGP Application on the YubiKey – Yubico](https://support.yubico.com/hc/en-us/articles/360013761339-Resetting-the-OpenPGP-Application-on-the-YubiKey "Resetting the OpenPGP Application on the YubiKey – Yubico").
-
-```bash
-gpg --card-edit
-```
-
-```txt
-Reader ...........: Yubico YubiKey FIDO CCID
-Application ID ...: D276000124010000000620141XXX0000
-Application type .: OpenPGP
-Version ..........: 3.4
-Manufacturer .....: Yubico
-Serial number ....: 20141XXX
-Name of cardholder: Doe John
-Language prefs ...: fr
-Salutation .......:
-URL of public key : [not set]
-Login data .......: [not set]
-Signature PIN ....: not forced
-Key attributes ...: ed25519 cv25519 ed25519
-Max. PIN lengths .: 127 127 127
-PIN retry counter : 3 0 3
-Signature counter : 3
-KDF setting ......: off
-UIF setting ......: Sign=on Decrypt=on Auth=on
-Signature key ....: DBCC F949 18B2 4D1A 0053  AD43 A2E6 18E2 0456 625F
-      created ....: 2023-12-12 22:01:54
-Encryption key....: B5FF 206E 44D0 20AE 6CC5  30C1 5247 7AF6 A631 E77F
-      created ....: 2023-12-12 22:18:06
-Authentication key: 5706 1CDF 8DC3 15ED 81A4  1DCC 37A9 02F0 30B4 4E05
-      created ....: 2023-12-12 22:20:20
-General key info..: sub  ed25519/A2E618E20456625F 2023-12-12 John Doe (General purpose personal key) <john.doe@example.org>
-sec   ed25519/A6D3E049FD2A88C4  created: 2023-12-12  expires: never
-ssb>  ed25519/A2E618E20456625F  created: 2023-12-12  expires: 2024-12-11
-                                card-no: 0006 20141XXX
-ssb>  cv25519/52477AF6A631E77F  created: 2023-12-12  expires: 2024-12-11
-                                card-no: 0006 20141XXX
-ssb>  ed25519/37A902F030B44E05  created: 2023-12-12  expires: 2024-12-11
-                                card-no: 0006 20141XXX
-
-gpg/card> admin
-Admin commands are allowed
-
-gpg/card> factory-reset
-gpg: OpenPGP card no. D276000124010000000620141XXX0000 detected
-
-gpg: Note: This command destroys all keys stored on the card!
-
-Continue? (y/N) y
-Really do a factory reset? (enter "yes") yes
-
-gpg/card> list
-
-Reader ...........: Yubico YubiKey FIDO CCID
-Application ID ...: D276000124010000000620141XXX0000
-Application type .: OpenPGP
-Version ..........: 3.4
-Manufacturer .....: Yubico
-Serial number ....: 20141XXX
-Name of cardholder: [not set]
-Language prefs ...: [not set]
-Salutation .......:
-URL of public key : [not set]
-Login data .......: [not set]
-Signature PIN ....: not forced
-Key attributes ...: rsa2048 rsa2048 rsa2048
-Max. PIN lengths .: 127 127 127
-PIN retry counter : 3 0 3
-Signature counter : 0
-KDF setting ......: off
-UIF setting ......: Sign=off Decrypt=off Auth=off
-Signature key ....: [none]
-Encryption key....: [none]
-Authentication key: [none]
-General key info..: [none]
-
-gpg/card>
-```
-
 ## References {#references}
 
 To write this article, I used various sources:
@@ -847,6 +834,8 @@ To write this article, I used various sources:
 - [drduh/YubiKey-Guide: Guide to using YubiKey for GPG and SSH](https://github.com/drduh/YubiKey-Guide "drduh/YubiKey-Guide: Guide to using YubiKey for GPG and SSH · GitHub")
   - Explains everything for every platform
 - [Setting up GnuPG + Yubikey on NixOS for SSH authentication][rzetterberg-article]
+  - Very complete, lots of good explanations, very close to this article finally (wish I had found it sooner)
+- [A setup guide to use a personal gpg key for ssh authentication](https://gist.github.com/mcattarinussi/834fc4b641ff4572018d0c665e5a94d3)
   - Very complete, lots of good explanations, very close to this article finally (wish I had found it sooner)
 - [GPG Cheat Sheet | Andy Gock](https://gock.net/blog/2020/gpg-cheat-sheet/ "GPG Cheat Sheet | Andy Gock")
   - Haven't used but might be interesting to keep around

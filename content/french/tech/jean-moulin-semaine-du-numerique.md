@@ -30,7 +30,7 @@ C’est aussi au lycée que j’ai commencé à écrire mes premiers programmes,
 
 L’informatique me passionnait alors en Terminale je me suis inscrit en spécialité Informatique et Sciences du Numérique. C’est à travers les cours de Laurent PROUST que j’ai mis les deux pieds dans l’informatique et que j’ai trouvé ma voie.
 
-Je me rappelle très bien de cette période : en classe on développait des jeux ou des logiciels puis je passais le reste de ma semaine à pousser les énoncés bien au-delà des attentes. C’est là que j’ai découvert qu’avec seulement un ordinateur et du temps je pouvais donner vie à tout ce qui me traversait la tête. L’approche ludique de Laurent PROUST m’a laissé beaucoup de très bons souvenirs, je vous recommande vraiment de vous inscrire à ses cours.
+Je me rappelle très bien de cette période : en classe on développait des jeux ou des logiciels puis je passais le reste de ma semaine à pousser les énoncés bien au-delà des attentes. C’est là que j’ai découvert qu’avec seulement un ordinateur et du temps je pouvais donner vie à tout ce qui me traversait la tête. L’approche ludique de Laurent PROUST m’a laissé beaucoup de très bons souvenirs, je vous recommande vraiment de vous inscrire à ses cours.
 
 En sortant du lycée, je suis allé à La Rochelle pour faire un DUT Informatique. Ce sont jusqu’ici les deux meilleures années de ma vie, où j’ai découvert les concepts qui se cachaient derrière ce que je comprenais et où j’ai réalisé la variété des domaines de l’informatique. C’est là que j’ai commencé à comprendre le monde numérique et que je me suis rendu compte son ampleur.
 
@@ -48,17 +48,17 @@ Travailler dans le numérique, c’est selon moi une opportunité d’avoir un i
 
 J’ai toujours participé à des projets à impact social positif, notamment dans les entreprises pour lesquelles j’ai travaillé. Il y a beaucoup de choses que je n’aime pas dans notre monde informatique d’aujourd’hui, mais plutôt que de m’en plaindre, protester ou essayer d’interdire certaines pratiques, j’ai préféré mettre toute mon énergie à essayer de les changer. C’est bien plus efficace et bien plus formateur. Je ne peux que vous encourager à faire de même, je suis sûr que vous avez plein de bonnes idées qui mériteraient de voir le jour.
 
-Un autre point que je trouve remarquable dans le numérique est l’ampleur de sa communauté. Où qu’ils soient dans le monde, peu importe leur niveau d'expérience, la plupart des développeurs et développeuses partagent leur travail par simple passion. C’est grâce à ces millions de projets mis en commun que les outils que l’on utilise aujourd’hui peuvent exister. Ça rejoint un peu ce que je disais quand je parlais de l’impact de notre travail : n’importe qui faisant l’effort de faire les choses bien peut voir son travail réutilisé dans un projet bien plus grand ensuite; c’est un effort commun. Comme Einstein, on travaille sur les épaules de géants; il faut en être reconnaissant.
+Un autre point que je trouve remarquable dans le numérique est l’ampleur de sa communauté. Où qu’ils soient dans le monde, peu importe leur niveau d'expérience, la plupart des développeurs et développeuses partagent leur travail par simple passion. C’est grâce à ces millions de projets mis en commun que les outils que l’on utilise aujourd’hui peuvent exister. Ça rejoint un peu ce que je disais quand je parlais de l’impact de notre travail : n’importe qui faisant l’effort de faire les choses bien peut voir son travail réutilisé dans un projet bien plus grand ensuite; c’est un effort commun. Comme Einstein, on travaille sur les épaules de géants; il faut en être reconnaissant.
 
 ### Comment je vis du numérique {#comment-je-vis-du-numerique}
 
 Si le numérique vous intéresse, vous vous demandez certainement comment en vivre. Le numérique est partout, alors rassurez-vous, il y a beaucoup de travail, dans tous les domaines.
 
-Il y a tellement de travail et de diversité que moi j’ai choisi de me spécialiser dans deux niches : le développement d’applications pour les plateformes Apple et plus récemment le développement de programmes écrits en Rust. Ce que l’on appelle les niches, ce sont des domaines où il y a moins d’offres d’emploi. Cela dit, si l’on choisit une niche par passion, on trouvera des missions passionnantes, et je trouve ça bien plus intéressant.
+Il y a tellement de travail et de diversité que moi j’ai choisi de me spécialiser dans deux niches : le développement d’applications pour les plateformes Apple et plus récemment le développement de programmes écrits en Rust. Ce que l’on appelle les niches, ce sont des domaines où il y a moins d’offres d’emploi. Cela dit, si l’on choisit une niche par passion, on trouvera des missions passionnantes, et je trouve ça bien plus intéressant.
 
 En m’entourant de personnes qui partagent mes valeurs, j’ai découvert Prose, un projet réunissant les deux niches qui me passionnent. Depuis 4 ans je n’ai fait qu’entendre des gens me dire que je m’enfermais dans certaines technologies et que ça allait me porter préjudice. Aujourd’hui je travaille pour un projet qui me passionne, je suis libre de travailler quand je veux et d’où je veux, je peux y exprimer ma créativité et mettre à profit mes connaissances, je trouve ça plutôt bien comme situation.
 
-Trouvez un domaine qui attise votre curiosité, un projet dont vous partagez les valeurs et foncez ! Voyez les choses en grand et vous rencontrerez sur votre chemin plein de gens qui changeront votre vie.
+Trouvez un domaine qui attise votre curiosité, un projet dont vous partagez les valeurs et foncez ! Voyez les choses en grand et vous rencontrerez sur votre chemin plein de gens qui changeront votre vie.
 
 ### Message aux personnes sous-représentées
 
@@ -68,7 +68,7 @@ Selon moi, c’est justement un des domaines où il y a le moins de racisme, sex
 
 Durant mon parcours professionnel, j’ai travaillé avec des femmes que j’admirais pour leurs compétences, des personnes qui ont changé de sexe, de nom et beaucoup qui n’étaient pas hétérosexuelles. J’ai aussi eu beaucoup de collègues issus de reconversions professionnelles, comme une prof d’espagnol, un pâtissier ou encore un directeur de centre commercial en Afrique. Certains n’avaient pas de diplôme, d’autres avaient plus de la cinquantaine, mais rien de tout cela ne comptait. On était une équipe qui avançait vers un objectif commun, c’est tout. Les personnes qui ne se sentaient pas à l’aise en société travaillaient de chez elles, les idées ne manquent pas pour que tout le monde se sente bien.
 
-Durant mon parcours post-BAC, je n’ai jamais eu plus de 3 femmes dans ma classe, et c’est vraiment dommage. Beaucoup de développeuses ont eu un grand impact dans l’histoire de l’informatique, et pourtant depuis plusieurs années on voit de mois en mois de femmes choisir cette voie. Je vais le redire une fois de plus : si vous voulez que vos valeurs deviennent des piliers de notre monde numérique, inculquez-les dans des projets à impact et les choses changeront.
+Durant mon parcours post-BAC, je n’ai jamais eu plus de 3 femmes dans ma classe, et c’est vraiment dommage. Beaucoup de développeuses ont eu un grand impact dans l’histoire de l’informatique, et pourtant depuis plusieurs années on voit de mois en mois de femmes choisir cette voie. Je vais le redire une fois de plus : si vous voulez que vos valeurs deviennent des piliers de notre monde numérique, inculquez-les dans des projets à impact et les choses changeront.
 
 ### Pour finir…
 

@@ -25,6 +25,7 @@ draft: true
 - [disaster.radio](https://disaster.radio/)
   > a disaster-resilient communications network powered by the sun
 - [Feelloo - Balise GPS pour chats](https://store.feelloo.com/)
+- [GPS Tracker Without Cellular Network With LORA Module](https://www.instructables.com/GPS-Tracker-Without-Cellular-Network-With-LORA-Mod/)
 
 ## Parts
 
@@ -40,6 +41,8 @@ draft: true
 - <https://www.adafruit.com/product/3072>
 - <https://www.adafruit.com/product/3078>
 - [Pycom LoPy4 - WiFi, BLE, LoRa, and Sigfox](https://www.adafruit.com/product/3689) - $49.95
+
+- https://www.waveshare.com/rp2040-lora.htm?sku=26542
 
 ## Papers
 
