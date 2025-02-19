@@ -1,7 +1,7 @@
 ############################## Default configuration ############################
 baseURL: https://blog.dev.remibardon.name
 theme: PaperMod
-copyright: Copyright © 2022–2024 Rémi Bardon
+copyright: Copyright © 2022–2025 Rémi Bardon
 taxonomies:
   category: categories
   tag: tags
