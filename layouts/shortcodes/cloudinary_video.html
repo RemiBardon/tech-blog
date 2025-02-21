@@ -18,4 +18,4 @@
 "poster" (.Get "poster")
 "lazy" (.Get "lazy" | default (.Page.Param "lazyVideos"))
 "cloudinary" (.Page.Params.cloudinary)
-) | partial "minify.html" -}}
+) | partial "util/minify" -}}

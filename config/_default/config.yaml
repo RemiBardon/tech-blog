@@ -68,7 +68,7 @@ params:
   ShareButtons: []
   ShowPostNavLinks: true
   ShowBreadcrumb: true
-  ShowCodeCopyButtons: true
+  showCodeCopyButtons: true
   disableSpecial1stPost: false
   disableScrollToTop: false
   comments: false

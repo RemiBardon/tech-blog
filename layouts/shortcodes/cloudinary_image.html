@@ -19,4 +19,4 @@
 "noDownload" (.Get "noDownload")
 "lazy" (.Get "lazy" | default (.Page.Param "lazyImages"))
 "cloudinary" (.Page.Params.cloudinary)
-) | partial "minify.html" -}}
+) | partial "util/minify" -}}
