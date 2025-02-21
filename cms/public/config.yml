@@ -13,8 +13,12 @@ collections:
       preview: false
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Summary (list cards)', name: 'summary', widget: 'string' }
-      - label: Description (Open Graph)
+      - label: Summary
+        hint: For list cards
+        name: summary
+        widget: string
+      - label: Description
+        hint: For Open Graph
         name: description
         widget: string
         required: false
