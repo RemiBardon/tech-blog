@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- See [Hugo | Decap CMS | Open-Source Content Management System](https://decapcms.org/docs/hugo/). -->
 <html>
   <head>
     <meta charset="utf-8" />
@@ -10,5 +11,142 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.6.2/dist/decap-cms.js"></script>
+    <script>
+      const LEADING_SPACES_REGEX = /^ */;
+
+      CMS.registerEditorComponent({
+        id: "callout",
+        label: "Callout",
+        fields: [
+          {
+            name: "type",
+            label: "Type",
+            widget: "select",
+            options: [
+              { label: "Note", value: "note" },
+              { label: "Abstract", value: "abstract" },
+              { label: "Summary", value: "summary" },
+              { label: "TL;DR", value: "tldr" },
+              { label: "Info", value: "info" },
+              { label: "To-Do", value: "todo" },
+              { label: "Tip", value: "tip" },
+              { label: "Hint", value: "hint" },
+              { label: "Important", value: "important" },
+              { label: "Success", value: "success" },
+              { label: "Check", value: "check" },
+              { label: "Done", value: "done" },
+              { label: "Question", value: "question" },
+              { label: "Help", value: "help" },
+              { label: "FAQ", value: "faq" },
+              { label: "Warning", value: "warning" },
+              { label: "Caution", value: "caution" },
+              { label: "Attention", value: "attention" },
+              { label: "Failure", value: "failure" },
+              { label: "Fail", value: "fail" },
+              { label: "Missing", value: "missing" },
+              { label: "Danger", value: "danger" },
+              { label: "Error", value: "error" },
+              { label: "Bug", value: "bug" },
+              { label: "Example", value: "example" },
+              { label: "Quote", value: "quote" },
+              { label: "Citation", value: "cite" },
+            ],
+          },
+          {
+            name: "fold",
+            label: "Folding mode",
+            widget: "select",
+            options: [
+              { label: "Always open", value: "" },
+              { label: "Open by default", value: "+" },
+              { label: "Closed by default", value: "-" },
+            ],
+            default: { label: "Always open", value: "" },
+          },
+          { label: "Title", name: "title", widget: "string", required: false },
+          {
+            label: "Body",
+            name: "body",
+            widget: "markdown",
+            required: false,
+            minimal: true,
+          },
+        ],
+        pattern:
+          /^\{\{<\s*callout\s+(?:type=)?"([a-z]+)"(?:\s+(?:fold=)?"([+-]?)")?(?:\s+(?:title=)?"(.+?)")?\s*(?:\/>\}\}|>\}\}(.+?)^\{\{<\s*\/callout\s*>\}\})/ms,
+        fromBlock: function (match) {
+          let body = match[4];
+          // NOTE: `body` might be `undefined`.
+          if (typeof body === "string") {
+            // NOTE: `body` might start with empty lines.
+            const bodyNonEmptyLines = body
+              .split("\n")
+              .filter((line) => line.trim() !== "");
+            const minIndent = bodyNonEmptyLines.reduce((min, line) => {
+              return Math.min(min, line.match(LEADING_SPACES_REGEX)[0].length);
+            }, Infinity);
+            if (minIndent > 0) {
+              body = body
+                .split("\n")
+                // NOTE: Lines can be empty.
+                .map((line) => line.slice(Math.min(minIndent, line.length)))
+                .join("\n");
+            }
+          }
+          return {
+            type: match[1],
+            fold: match[2],
+            title: match[3],
+            body,
+          };
+        },
+        toBlock: function (obj) {
+          let block = `{{< callout type="${obj.type}"`;
+          if (obj.fold) {
+            block += ` fold="${obj.fold}"`;
+          }
+          if (obj.title) {
+            block += ` title="${obj.title}"`;
+          }
+          if (obj.body) {
+            const body = obj.body
+              .split("\n")
+              .map((line) => "  " + line)
+              .join("\n");
+            block += ` >}}\n${body}\n{{< /callout >}}`;
+          } else {
+            block += " />}}";
+          }
+          return block;
+        },
+        toPreview: function (obj) {
+          let preview = "";
+          switch (obj.fold) {
+            case "+":
+              preview += "<details open>";
+              break;
+            case "-":
+              preview += "<details>";
+              break;
+            case "":
+              preview += "<details open disabled>";
+              break;
+          }
+          preview += `\n  <summary><strong>${obj.type}`;
+          if (obj.fold) {
+            preview += obj.fold;
+          }
+          if (obj.title) {
+            preview += `: ${obj.title}`;
+          }
+          preview += `</strong></summary>`;
+          if (obj.body) {
+            preview += `\n  ${obj.body}`;
+          }
+          preview += `\n</details>`;
+          return preview;
+        },
+      });
+    </script>
   </body>
 </html>

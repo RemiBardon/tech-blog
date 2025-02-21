@@ -24,13 +24,13 @@ Here is what it looks like (taking examples from [Callouts - Obsidian Help](http
 
 {{< /callout >}}
 
-{{< callout type="tip" summary="Callouts can have custom titles" >}}
+{{< callout type="tip" title="Callouts can have custom titles" >}}
 
   Like this one
 
 {{< /callout >}}
 
-{{< callout type="tip" summary="Title-only callout" />}}
+{{< callout type="tip" title="Title-only callout" />}}
 
 {{< callout type="faq" fold="-" title="Are callouts foldable?" >}}
 
