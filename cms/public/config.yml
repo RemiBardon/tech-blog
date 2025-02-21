@@ -5,11 +5,20 @@ backend:
   branch: main
 media_folder: static/img
 public_folder: /img
+i18n:
+  structure: multiple_folders
+  locales: [english, french]
+  default_locale: english
 collections:
-  - name: dev_en
-    label: Dev post (en)
-    folder: content/english/dev
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: content
+    i18n: true
     create: true
+    nested:
+      depth: 5
+    meta: { path: { widget: string, label: Path, index_file: _index } }
     # slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
       preview: false
